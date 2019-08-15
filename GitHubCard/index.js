@@ -176,23 +176,39 @@ axios
     // create following array from response data
     const followingArray = response.data;
 
-    // iterate through array, creating a new card and adding to DOM
-    followingArray.forEach(item => {
-      // create a new card for each user
-      const card = gitCard(
-        item.avatar_url,
-        item.name,
-        item.login,
-        item.location,
-        item.html_url,
-        item.followers,
-        item.following,
-        item.bio
-      );
+    // create array of following urls
+    const followingUrl = followingArray.map(item => {
+      return item.url;
+    });
 
-      // add each user card to the DOM
-      const container = document.querySelector(".cards");
-      container.appendChild(card);
+    // iterate over following urls
+    followingUrl.forEach(item => {
+      axios
+        // requesting data for each user
+        .get(item)
+        .then(response => {
+          // network request resolved
+          // create a new card for each user
+          const card = gitCard(
+            response.data.avatar_url,
+            response.data.name,
+            response.data.login,
+            response.data.location,
+            response.data.html_url,
+            response.data.followers,
+            response.data.following,
+            response.data.bio
+          );
+
+          // add each user card to the DOM
+          const container = document.querySelector(".cards");
+          container.appendChild(card);
+        })
+        .catch(error => {
+          // network request rejected
+          console.log("Network request was unsuccessful");
+          console.log(error);
+        });
     });
   })
   .catch(error => {
