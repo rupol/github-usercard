@@ -44,6 +44,7 @@
 
 */
 
+// create component function
 function gitCard(
   imageUrl,
   titleText,
@@ -54,48 +55,59 @@ function gitCard(
   followingCount,
   userBioText
 ) {
+  // <div class="card">
   const card = document.createElement("div");
   card.classList.add("card");
 
+  // <img src={image url of user} />
   const image = document.createElement("img");
   image.src = imageUrl;
   card.appendChild(image);
 
+  // <div class="card-info">
   const cardInfo = document.createElement("div");
   cardInfo.classList.add("card-info");
   card.appendChild(cardInfo);
 
+  // <h3 class="name">{users name}</h3>
   const title = document.createElement("h3");
   title.classList.add("name");
   title.textContent = titleText;
   cardInfo.appendChild(title);
 
+  // <p class="username">{users user name}</p>
   const username = document.createElement("p");
   username.classList.add("username");
   username.textContent = usernameText;
   cardInfo.appendChild(username);
 
+  // <p>Location: {users location}</p>
   const userLocation = document.createElement("p");
   userLocation.textContent = `Location: ${userLocationText}`;
   cardInfo.appendChild(userLocation);
 
+  // <p>Profile:
   const userProfile = document.createElement("p");
   userProfile.textContent = "Profile: ";
   cardInfo.appendChild(userProfile);
 
+  // <a href={address to users github page}>{address to users github page}</a>
   const profileLink = document.createElement("a");
   profileLink.href = profileHref;
   profileLink.textContent = profileHref;
   userProfile.appendChild(profileLink);
 
+  // <p>Followers: {users followers count}</p>
   const userFollowers = document.createElement("p");
   userFollowers.textContent = `Followers: ${followerCount}`;
   cardInfo.appendChild(userFollowers);
 
+  // <p>Following: {users following count}</p>
   const userFollowing = document.createElement("p");
   userFollowing.textContent = `Following: ${followingCount}`;
   cardInfo.appendChild(userFollowing);
 
+  // <p>Bio: {users bio}</p>
   const userBio = document.createElement("p");
   userBio.textContent = `Bio: ${userBioText}`;
   cardInfo.appendChild(userBio);
@@ -103,6 +115,8 @@ function gitCard(
   return card;
 }
 
+/*
+// followers array
 const followersArray = [
   "rupol",
   "muhkyle",
@@ -117,17 +131,20 @@ const followersArray = [
   "bigknell"
 ];
 
+// create array of github user urls from followers array
 const followersUrl = followersArray.map(item => {
   const url = "https://api.github.com/users/";
   return url + item;
 });
-console.log(followersUrl);
 
+// iterate over followers urls
 followersUrl.forEach(item => {
   axios
+    // requesting data for each user
     .get(item)
     .then(response => {
-      // network request finished
+      // network request resolved
+      // create a new card for each user
       const card = gitCard(
         response.data.avatar_url,
         response.data.name,
@@ -138,11 +155,48 @@ followersUrl.forEach(item => {
         response.data.following,
         response.data.bio
       );
+
+      // add each user card to the DOM
       const container = document.querySelector(".cards");
       container.appendChild(card);
     })
     .catch(error => {
+      // network request rejected
       console.log("Network request was unsuccessful");
       console.log(error);
     });
 });
+*/
+
+// stretch - programmatically create following array
+axios
+  .get("https://api.github.com/users/rupol/following")
+  .then(response => {
+    // network request resolved
+    // create following array from response data
+    const followingArray = response.data;
+
+    // iterate through array, creating a new card and adding to DOM
+    followingArray.forEach(item => {
+      // create a new card for each user
+      const card = gitCard(
+        item.avatar_url,
+        item.name,
+        item.login,
+        item.location,
+        item.html_url,
+        item.followers,
+        item.following,
+        item.bio
+      );
+
+      // add each user card to the DOM
+      const container = document.querySelector(".cards");
+      container.appendChild(card);
+    });
+  })
+  .catch(error => {
+    // network request rejected
+    console.log("Network request was unsuccessful");
+    console.log(error);
+  });
