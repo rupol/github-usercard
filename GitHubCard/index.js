@@ -24,8 +24,6 @@
   user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
   Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -105,44 +103,46 @@ function gitCard(
   return card;
 }
 
-// const ruth = gitCard(
-//   "https://avatars0.githubusercontent.com/u/47793431?v=4",
-//   "name",
-//   "login",
-//   "location",
-//   "html_url",
-//   "followers",
-//   "following",
-//   "bio"
-// );
+const followersArray = [
+  "rupol",
+  "muhkyle",
+  "clifhodges13",
+  "lcrt215",
+  "radeleon",
+  "rm-lee",
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
 
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
+const followersUrl = followersArray.map(item => {
+  const url = "https://api.github.com/users/";
+  return url + item;
+});
+console.log(followersUrl);
 
-axios
-  .get("https://api.github.com/users/rupol")
-  .then(response => {
-    console.log(response.data);
-    // network request finished
-    const card = gitCard(
-      response.data.avatar_url,
-      response.data.name,
-      response.data.login,
-      response.data.location,
-      response.data.html_url,
-      response.data.followers,
-      response.data.following,
-      response.data.bio
-    );
-    const container = document.querySelector(".cards");
-    container.appendChild(card);
-  })
-  .catch(error => {
-    console.log("Network request was unsuccessful");
-    console.log(error);
-  });
+followersUrl.forEach(item => {
+  axios
+    .get(item)
+    .then(response => {
+      // network request finished
+      const card = gitCard(
+        response.data.avatar_url,
+        response.data.name,
+        response.data.login,
+        response.data.location,
+        response.data.html_url,
+        response.data.followers,
+        response.data.following,
+        response.data.bio
+      );
+      const container = document.querySelector(".cards");
+      container.appendChild(card);
+    })
+    .catch(error => {
+      console.log("Network request was unsuccessful");
+      console.log(error);
+    });
+});
