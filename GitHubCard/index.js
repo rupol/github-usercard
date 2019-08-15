@@ -46,6 +46,79 @@ const followersArray = [];
 
 */
 
+function gitCard(
+  imageUrl,
+  titleText,
+  usernameText,
+  userLocationText,
+  profileHref,
+  followerCount,
+  followingCount,
+  userBioText
+) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const image = document.createElement("img");
+  image.src = imageUrl;
+  card.appendChild(image);
+
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("card-info");
+  card.appendChild(cardInfo);
+
+  const title = document.createElement("h3");
+  title.classList.add("name");
+  title.textContent = titleText;
+  cardInfo.appendChild(title);
+
+  const username = document.createElement("p");
+  username.classList.add("username");
+  username.textContent = usernameText;
+  cardInfo.appendChild(username);
+
+  const userLocation = document.createElement("p");
+  userLocation.textContent = `Location: ${userLocationText}`;
+  cardInfo.appendChild(userLocation);
+
+  const userProfile = document.createElement("p");
+  userProfile.textContent = "Profile: ";
+  cardInfo.appendChild(userProfile);
+
+  const profileLink = document.createElement("a");
+  profileLink.href = profileHref;
+  profileLink.textContent = profileHref;
+  userProfile.appendChild(profileLink);
+
+  const userFollowers = document.createElement("p");
+  userFollowers.textContent = `Followers: ${followerCount}`;
+  cardInfo.appendChild(userFollowers);
+
+  const userFollowing = document.createElement("p");
+  userFollowing.textContent = `Following: ${followingCount}`;
+  cardInfo.appendChild(userFollowing);
+
+  const userBio = document.createElement("p");
+  userBio.textContent = `Bio: ${userBioText}`;
+  cardInfo.appendChild(userBio);
+
+  return card;
+}
+
+const ruth = gitCard(
+  "https://avatars0.githubusercontent.com/u/47793431?v=4",
+  "name",
+  "login",
+  "location",
+  "html_url",
+  "followers",
+  "following",
+  "bio"
+);
+
+const container = document.querySelector(".cards");
+container.appendChild(ruth);
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -53,3 +126,7 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+axios.get("https://api.github.com/users/rupol").then(response => {
+  console.log(response);
+});

@@ -10,7 +10,7 @@ In this project we are going to be accessing the GitHub API and building a socia
   - Promises, .then & .catch
   - HTTP GET requests
   - Array Methods
-- DOM
+  - DOM
   - Element selection
   - Basic DOM manipulation
   - Events and event listeners
@@ -28,7 +28,7 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 **Follow these steps for completing your project.**
 
-- [ ] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's Repo). **Please don't merge your own pull request**
+- [x] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's Repo). **Please don't merge your own pull request**
 - [ ] Add your project manager as a reviewer on the pull-request
 - [ ] Your project manager will count the project as complete by merging the branch back into master.
 
