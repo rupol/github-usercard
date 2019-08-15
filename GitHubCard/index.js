@@ -53,7 +53,8 @@ function gitCard(
   profileHref,
   followerCount,
   followingCount,
-  userBioText
+  userBioText,
+  calendarPointer
 ) {
   // <div class="card">
   const card = document.createElement("div");
@@ -111,6 +112,12 @@ function gitCard(
   const userBio = document.createElement("p");
   userBio.textContent = `Bio: ${userBioText}`;
   cardInfo.appendChild(userBio);
+
+  // <div class="calendar">
+  const calendar = document.createElement("div");
+  calendar.classList.add("calendar");
+  card.appendChild(calendar);
+  new GitHubCalendar(calendar, calendarPointer);
 
   return card;
 }
@@ -189,6 +196,7 @@ axios
         .then(response => {
           // network request resolved
           // create a new card for each user
+          // console.log(response);
           const card = gitCard(
             response.data.avatar_url,
             response.data.name,
@@ -197,7 +205,8 @@ axios
             response.data.html_url,
             response.data.followers,
             response.data.following,
-            response.data.bio
+            response.data.bio,
+            response.data.login
           );
 
           // add each user card to the DOM
