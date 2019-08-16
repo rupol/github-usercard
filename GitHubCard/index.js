@@ -182,6 +182,7 @@ axios
     // network request resolved
     // create following array from response data
     const followingArray = response.data;
+    console.log(response.data);
 
     // create array of following urls
     const followingUrl = followingArray.map(item => {

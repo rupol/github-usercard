@@ -8,6 +8,12 @@
     margin       : 0 auto;
 }
 
+@media (max-width: 950px) {
+    .calendar {
+        display: none;
+    }
+}
+
 .calendar-graph text.wday,
 .calendar-graph text.month {
     font-size: 10px;

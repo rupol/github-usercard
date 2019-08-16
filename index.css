@@ -164,7 +164,8 @@ body {
 .header {
   width          : 100%;
   display        : flex;
-  justify-content: space-between;
+  flex-wrap      : wrap;
+  justify-content: space-evenly;
   align-items    : center;
   margin-bottom  : 50px;
 }
@@ -172,6 +173,8 @@ body {
 .header img {
   width : 150px;
   height: 150px;
+  margin: 20px;
+
 }
 
 .header p {
@@ -186,21 +189,30 @@ body {
   width           : 100%;
   padding         : 20px;
   display         : flex;
+  flex-wrap       : wrap;
+  justify-content : space-evenly;
+  align-items     : center;
   border-radius   : 5px;
-  box-shadow      : 0 1px 6px -2px #000;
+  box-shadow      : 0 6px 16px #000;
   background-color: #FFF;
   margin-bottom   : 30px;
+  transition      : transform 0.3s, -webkit-transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.01);
 }
 
 .card img {
   width        : 150px;
   height       : 150px;
   border-radius: 3px;
-  margin-right : 20px;
+  margin       : 0 10px 20px;
 }
 
 .card .card-info {
-  width: 250px;
+  width        : 250px;
+  margin-bottom: 20px;
 }
 
 .card .name {
